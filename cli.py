@@ -30,7 +30,7 @@ def get_single_file_hash(path):
     return hash_file.hash_file_from_absolute_path(path)
 
 def question_single_path():
-    return questionary.path("Path including the file:").ask()
+    return questionary.path("Path including the file (/path/to/file.ext):").ask()
 
 def get_filename_from_path(path):
     return split(r'^(.+)\/([^\/]+)$',path)
@@ -47,7 +47,6 @@ def get_single_file_path_hash():
             else: 
                 return None,None
         return path, blake_hash
-        
 
 def single_file_operations(path,hash):
     file_name = get_filename_from_path(path)
