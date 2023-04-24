@@ -37,12 +37,15 @@ def get_filename_from_path(path):
 
 def get_single_file_path_hash():
     while True:
+        path = question_single_path() 
         try:
-            path = question_single_path() 
             blake_hash = get_single_file_hash(path)
         except:
             print(FileNotFoundError("File not found"))
-            continue
+            if questionary.confirm("Try another path?").ask():
+                continue
+            else: 
+                return 0,0
         return path, blake_hash
         
 
@@ -67,6 +70,7 @@ def main():
                 p_help()
             case "Single File Operations":
                 path,hash = get_single_file_path_hash()
-                single_file_operations(path,hash)
+                if path != 0:
+                    single_file_operations(path,hash)
             case "Exit":
                 break
