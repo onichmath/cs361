@@ -12,3 +12,6 @@ def hash_file_from_absolute_path(filepath):
     return blake_hash
 
 
+def save_hash_to_absolute_path(blake_hash, filepath):
+    with open(filepath,"w") as f:
+        f.write(blake_hash)
