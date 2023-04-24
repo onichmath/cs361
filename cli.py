@@ -56,8 +56,9 @@ def single_file_operations(path,hash):
             case "Print the hash to the terminal":
                 print(f"\nThe hash of {file_name[2]} is:\n{hash.hexdigest()}")
             case "Save the hash to a file":
-                path = questionary.path("Path to save the hash:").ask()
-                hash_file.save_hash_to_absolute_path(hash,path)
+                if questionary.confirm("Saving a hash will take up drive space. Continue?").ask():
+                    path = questionary.path("Directory to save the hash:").ask()
+                    hash_file.save_hash_to_absolute_path(hash,path + f"/{file_name[2]}.blake2")
             case "Return to start screen":
                 return
 
