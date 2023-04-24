@@ -23,7 +23,15 @@ def single_file_prompt():
     return question.ask()
 
 def p_help():
-    print("HELP OPTIONS HERE")
+    print(f"\nWelcome to Hashy, a Command Line hashing tool. Hashy uses the Blake2 hashing algorithm to find the hashes of files. \
+          \n\t1. Why? \
+          \n\t\tTracking the hashes of files allows us to tell whether or not they have been tampered with. \
+          \n\t2. How? \
+          \n\t\tSimply follow the \"Single File Operations\" option and input a absolute path to a program \
+          \n\t\tAbsolute paths: An absolute path form \"/path/to/file.ext\", where .ext is the file extension \
+          \n\t3. Navigation \
+          \n\t\tEither use arrow keys or j and k to move up and down. Use enter to select an option. \
+          \n\tTo continue, simply choose an option.\n")
 
 
 def get_single_file_hash(path):
