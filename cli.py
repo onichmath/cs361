@@ -45,7 +45,7 @@ def get_single_file_path_hash():
             if questionary.confirm("Try another path?").ask():
                 continue
             else: 
-                return 0,0
+                return None,None
         return path, blake_hash
         
 
@@ -55,7 +55,7 @@ def single_file_operations(path,hash):
         answer = single_file_prompt()
         match answer:
             case "Print the hash to the terminal":
-                print(f"The hash of {file_name[2]} is:\n{hash.hexdigest()}\n")
+                print(f"\nThe hash of {file_name[2]} is:\n{hash.hexdigest()}")
             case "Save the hash to a file":
                 path = questionary.path("Path to save the hash:").ask()
                 hash_file.save_hash_to_absolute_path(hash,path)
@@ -70,7 +70,7 @@ def main():
                 p_help()
             case "Single File Operations":
                 path,hash = get_single_file_path_hash()
-                if path != 0:
+                if path:
                     single_file_operations(path,hash)
             case "Exit":
                 break
