@@ -6,26 +6,26 @@ Code based off of: https://zeromq.org/languages/python/
 import zmq
 
 
-def main():
-    socket = setup_client()
-    while True:
-        send_sql_request(socket)
+class REQSocket():
+    def __init__(self):
+        self.context = zmq.Context()
+        # Using REQ and REP socket pair
+        self.socket = self.context.socket(zmq.REQ)
+        self.socket.connect("tcp://localhost:5555")
 
-def send_sql_request(socket: zmq.Socket):
+SOCKET = REQSocket().socket
+
+def main():
+    while True:
+        send_sql_request()
+
+def send_sql_request():
     # Send requests to db
     request = input("Send a SQL request to server: ")
     # Unicode not allowed
-    socket.send_string(request)
-    return_message = socket.recv()
+    SOCKET.send_string(request)
+    return_message = SOCKET.recv_string()
     print(f"Returned: {return_message}")
-
-def setup_client() -> zmq.Socket:
-    context = zmq.Context()
-    print("Connecting to server")
-    # Using REQ and REP socket pair
-    socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5555")
-    return socket
 
 if __name__ == "__main__":
     main()
