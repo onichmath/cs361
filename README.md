@@ -18,3 +18,6 @@ Data is recieved following these steps:
 2. Receive query by using SOCKET.recv_string()
 3. Parse and execute query
 4. Return results with SOCKET.send_string()
+
+
+![Alt text](./lib/sequence.png)
