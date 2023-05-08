@@ -45,6 +45,7 @@ def receive_sql_request():
             return False
     time.sleep(1)
     SOCKET.send_string(result)
+    return True
 
 def delete_or_insert_statement(query) -> str:
     """

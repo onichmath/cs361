@@ -16,8 +16,9 @@ class REQSocket():
 SOCKET = REQSocket().socket
 
 def main():
-    while True:
-        send_sql_request()
+    flag = True
+    while flag:
+        flag = send_sql_request()
 
 def send_sql_request():
     """
@@ -25,11 +26,16 @@ def send_sql_request():
     """
     # Send requests to db
     request = input("Send a SQL request to server: ")
+
     # Unicode not allowed
     SOCKET.send_string(request)
+    if request == "q": return False
+
     return_message = SOCKET.recv_string()
     time.sleep(3)
     print(f"Returned: {return_message}")
+
+    return True
 
 if __name__ == "__main__":
     main()
