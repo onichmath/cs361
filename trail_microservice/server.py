@@ -6,28 +6,40 @@ import time
 import zmq
 import create_trails_database
 
-# Creates tables in trails.db if they do not already exist
-create_trails_database.create_tables()
 
-# Server setup from zeroMQ
-context = zmq.Context()
-# Using REP and REQ socket pair
-socket = context.socket(zmq.REP)
-socket.bind("tcp://*:5555")
+def main():
+    # Creates tables in trails.db if they do not already exist
+    create_trails_database.create_tables()
+    socket = setup_server()
 
-while True:
-    query = socket.recv_string()
-    # Using string slicing to find statement type
-    print(f"Received query with start: {query[:6]}")
-    # TODO: Query database
-    match query[:6]:
-        case "SELECT":
-            print("SELECT STATEMENT")
-        case "DELETE":
-            print("DELETE STATEMENT")
-        case "INSERT":
-            print("INSERT STATEMENT")
-        case _:
-            print("Nothing matched")
-    time.sleep(1)
-    socket.send(b"NOT YET IMPLEMENTED")
+    while True:
+       receive_sql_request(socket) 
+
+def receive_sql_request(socket: zmq.Socket): 
+        query = socket.recv_string()
+        # Using string slicing to find statement type
+        print(f"Received query with start: {query[:6]}")
+        # TODO: refactor out query logic 
+        match query[:6]:
+            case "SELECT": 
+                print("DELETE STATEMENT")
+            case "DELETE":
+                print("DELETE STATEMENT")
+            case "INSERT":
+                print("INSERT STATEMENT")
+            case _:
+                print("Nothing matched")
+        time.sleep(1)
+        socket.send(b"NOT YET IMPLEMENTED")
+
+def setup_server() -> zmq.Socket:
+    # Server setup from zeroMQ
+    context = zmq.Context()
+    # Using REP and REQ socket pair
+    socket = context.socket(zmq.REP)
+    socket.bind("tcp://*:5555")
+    return socket
+
+
+if __name__ == "__main__":
+    main()
