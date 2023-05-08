@@ -21,8 +21,9 @@ SOCKET = REPSocket().socket
 def main():
     # Creates tables in trails.db if they do not already exist
     create_trails_database.create_tables()
-    while True:
-       receive_sql_request() 
+    flag = True
+    while flag:
+       flag = receive_sql_request() 
 
 def receive_sql_request(): 
     """
@@ -40,6 +41,8 @@ def receive_sql_request():
             result = delete_or_insert_statement(query)
         case "INSERT":
             result = delete_or_insert_statement(query)
+        case "q":
+            return False
     time.sleep(1)
     SOCKET.send_string(result)
 
