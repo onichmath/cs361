@@ -6,7 +6,9 @@ Tables from Brendan Cook
 import sqlite3
 
 def create_tables():
-    """Main connects to trails.db and executes create statements using a cursor object"""
+    """
+    Main connects to trails.db and executes create statements using a cursor object
+    """
     # Attempts to connect to trails.db, else creates empty db
     connection = sqlite3.connect("trails.db")
     # Use cursor object to send SQL commands to database
@@ -16,7 +18,10 @@ def create_tables():
     create_riden_table(cursor)
 
 def create_trails_table(cursor: sqlite3.Cursor):
-    """Create trails table executes a create table statement on a SQL cursor object""" 
+    """
+    Create trails table executes a create table statement on a SQL cursor object
+    :param cursor: A sqlite3 cursor object that allows for executing queries
+    """ 
     # Execute create statement
     cursor.execute("""CREATE TABLE IF NOT EXISTS trails (
         trail_id int NOT NULL,
@@ -29,7 +34,10 @@ def create_trails_table(cursor: sqlite3.Cursor):
         """)
 
 def create_riden_table(cursor: sqlite3.Cursor):
-    """Create riden table executes a create table statement on a SQL cursor object""" 
+    """
+    Create riden table executes a create table statement on a SQL cursor object
+    :param cursor: A sqlite3 cursor object that allows for executing queries
+    """ 
     # Execute create statement
     cursor.execute("""CREATE TABLE IF NOT EXISTS riden (
         riden_id int NOT NULL,

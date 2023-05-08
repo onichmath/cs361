@@ -21,27 +21,34 @@ SOCKET = REPSocket().socket
 def main():
     # Creates tables in trails.db if they do not already exist
     create_trails_database.create_tables()
-
     while True:
        receive_sql_request() 
 
 def receive_sql_request(): 
-        query = SOCKET.recv_string()
-        # Using string slicing to find statement type
-        print(f"Received query with start: {query[:6]}")
-        # TODO: refactor out query logic 
-        result = "Failure"
-        match query[:6]:
-            case "SELECT": 
-                result = select_statement(query)
-            case "DELETE":
-                result = delete_or_insert_statement(query)
-            case "INSERT":
-                result = delete_or_insert_statement(query)
-        time.sleep(1)
-        SOCKET.send_string(result)
+    """
+    Matches query from client to cases and returns result to client
+    """
+    query = SOCKET.recv_string()
+    # Using string slicing to find statement type
+    print(f"Received query: {query}")
+    # TODO: refactor out query logic 
+    result = "Failure"
+    match query[:6]:
+        case "SELECT": 
+            result = select_statement(query)
+        case "DELETE":
+            result = delete_or_insert_statement(query)
+        case "INSERT":
+            result = delete_or_insert_statement(query)
+    time.sleep(1)
+    SOCKET.send_string(result)
 
 def delete_or_insert_statement(query) -> str:
+    """
+    Executes query and commits it to memory
+    :param query: from SOCKET.recv_string() 
+    :return: returns either success or failure
+    """
     try:
         CURSOR.execute(query)
         DBCONN.commit()
@@ -50,13 +57,25 @@ def delete_or_insert_statement(query) -> str:
         return "Failure"
 
 def select_statement(query):
-    CURSOR.execute(query)
-    output = CURSOR.fetchall()
-    results = ""
-    for row in output:
-        print(f"{row}")
-        results += row
-    return results
+    """
+    Executes select statement and returns results delimited by pipe operator.
+    To parse results, use regex: [^\|]+ to match anything not pipe 1 or more times
+    Or simply change delimiter
+    :param query: from SOCKET.recv_string() 
+    :return: either results or Failure if it fails
+    """
+    try:
+        CURSOR.execute(query)
+        output = CURSOR.fetchall()
+        if len(output) == 0: return "No matches"
+        results = ""
+        for row in output:
+            for column in row:
+                results += f"{str(column)}|" 
+            results += "\n"
+        return results
+    except:
+        return "Failure"
 
 
 if __name__ == "__main__":
