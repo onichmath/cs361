@@ -34,6 +34,7 @@ def receive_sql_request():
     print(f"Received query: {query}")
     # TODO: refactor out query logic 
     result = "Failure"
+
     match query[:6]:
         case "SELECT": 
             result = select_statement(query)
@@ -43,6 +44,7 @@ def receive_sql_request():
             result = delete_or_insert_statement(query)
         case "q":
             return False
+
     time.sleep(1)
     SOCKET.send_string(result)
     return True
