@@ -7,11 +7,11 @@ import zmq
 import time
 
 class REQSocket():
-    def __init__(self):
+    def __init__(self, connection = "tcp://localhost:5555"):
         self.context = zmq.Context()
         # Using REQ and REP socket pair
         self.socket = self.context.socket(zmq.REQ)
-        self.socket.connect("tcp://localhost:5555")
+        self.socket.connect(connection)
 
 SOCKET = REQSocket().socket
 

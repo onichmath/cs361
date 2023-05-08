@@ -8,11 +8,11 @@ import create_trails_database
 import sqlite3
 
 class REPSocket():
-    def __init__(self):
+    def __init__(self, connection = "tcp://*:5555"):
         self.context = zmq.Context()
         # Using REP and REQ socket pair
         self.socket = self.context.socket(zmq.REP)
-        self.socket.bind("tcp://*:5555")
+        self.socket.bind(connection)
 
 DBCONN = sqlite3.connect("trails.db")
 CURSOR = DBCONN.cursor()
@@ -67,12 +67,15 @@ def select_statement(query):
     try:
         CURSOR.execute(query)
         output = CURSOR.fetchall()
+        
         if len(output) == 0: return "No matches"
+
         results = ""
         for row in output:
             for column in row:
                 results += f"{str(column)}|" 
             results += "\n"
+
         return results
     except:
         return "Failure"
