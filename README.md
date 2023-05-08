@@ -10,6 +10,7 @@ Request data using this object with these steps:
 1. Create REQSocket object socket variable named SOCKET
 2. Pass in request to REQSocket object using: SOCKET.send_string(request)
 3. Receive server response with SOCKET.recv_string()
+4. Sending "q" as a request will exit both the server and client
 
 #### Receiving Data
 Data is received over the TCP protocol, using a REPSocket class object that instantialized a REPSocket to port 5555 by default. 
