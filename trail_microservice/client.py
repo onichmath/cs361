@@ -7,6 +7,7 @@ import zmq
 
 context = zmq.Context()
 print("Connecting to server")
+# Using REQ and REP socket pair
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:5555")
 
