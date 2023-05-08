@@ -16,6 +16,18 @@ socket = context.socket(zmq.REP)
 socket.bind("tcp://*:5555")
 
 while True:
-    query = socket.recv()
+    query = socket.recv_string()
     # Using string slicing to find statement type
-    print(f"Received query with start: {query[:5]}")
+    print(f"Received query with start: {query[:6]}")
+    # TODO: Query database
+    match query[:6]:
+        case "SELECT":
+            print("SELECT STATEMENT")
+        case "DELETE":
+            print("DELETE STATEMENT")
+        case "INSERT":
+            print("INSERT STATEMENT")
+        case _:
+            print("Nothing matched")
+    time.sleep(1)
+    socket.send(b"NOT YET IMPLEMENTED")

@@ -13,9 +13,8 @@ socket.connect("tcp://localhost:5555")
 
 while True:
     # Send requests to db
-    # TODO: SQLless queries
     request = input("Send a SQL request to server: ")
-    socket.send(request)
-
+    # Unicode not allowed
+    socket.send_string(request)
     return_message = socket.recv()
     print(f"Returned: {return_message}")
