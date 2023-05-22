@@ -1,14 +1,11 @@
 import hash_file
 from questions import question_single_file_path, question_confirm, single_file_prompt, question_single_directory, get_filename_from_path
 
-def get_single_file_hash(path):
-    return hash_file.hash_file_from_absolute_path(path)
-
 def get_single_file_path_hash():
     while True:
         path = question_single_file_path() 
         try:
-            blake_hash = get_single_file_hash(path)
+            blake_hash = hash_file.hash_file_from_absolute_path(path)
         except:
             print(FileNotFoundError("File not found"))
             if question_confirm("Try another path?"):
