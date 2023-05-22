@@ -122,20 +122,26 @@ def add_file_hash_to_database():
             print(FileNotFoundError("File not found"))
             if questionary.confirm("Try another path?").ask():
                continue 
-            else: 
-                return
+            return
         try:
-            client.client(f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash}','{file_name}')")
+            query = f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash}','{file_name}')"
+            client.client(query)
         except:
             print("server error")
-        else:
-            return
+        return
 
 
 def database_select_single_file():
     while True:
         file_name = input("Filename to get:")
-
+        query = f"SELECT hash, file_name FROM hashes WHERE file_name = {file_name}"
+        try:
+            client.client(query)
+        except:
+            print("Filename not found")
+            if questionary.confirm("Try another file name?").ask():
+                continue
+        return
 
 def query_database():
     while True:
