@@ -1,3 +1,7 @@
+"""
+Author: Matthew O'Malley-Nichols
+Description: Single file hashing and saving hash to file
+"""
 from hashlib import blake2b
 
 def hash_file_from_absolute_path(filepath):

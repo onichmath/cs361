@@ -1,3 +1,7 @@
+"""
+Author: Matthew O'Malley-Nichols
+Description: Questions for CLI flow, and logic to get filename from a path
+"""
 import questionary
 from re import split
 

@@ -1,3 +1,7 @@
+"""
+Author: Matthew O'Malley-Nichols
+Description: Single file operations for use with cli
+"""
 import hash_file
 from questions import question_single_file_path, question_confirm, single_file_prompt, question_single_directory, get_filename_from_path
 

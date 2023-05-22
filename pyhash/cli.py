@@ -1,9 +1,11 @@
-import questionary
-import hash_file
-from re import split 
+"""
+Author: Matthew O'Malley-Nichols
+Description: CLI main flow
+"""
 import sys
-from database import client
 import single_file_operations
+import database_operations
+from questions import p_help, start_screen
 """
 Refactoring ideas:
     put each "line" of questions and functions into their own file
@@ -38,7 +40,7 @@ def main():
                     single_file_operations.single_file_operations(path,hash)
                 continue
             if init_answer == "Database Operations":
-                database_operations()
+                database_operations.database_operations()
                 continue
             if init_answer == "Exit":
                 break

@@ -1,3 +1,7 @@
+"""
+Author: Matthew O'Malley-Nichols
+Description: Database operations for use with cli
+"""
 import hash_file 
 from questions import question_single_file_path, get_filename_from_path, question_confirm, query_database_type_prompt, database_operations_prompt
 from database import client

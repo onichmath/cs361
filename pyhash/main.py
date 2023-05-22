@@ -1,6 +1,6 @@
-# Use hashlib
-# Read file into bytes, using buffer to prevent overruse of ram
-# Hash file bytes
+"""
+Author: Matthew O'Malley-Nichols
+"""
 import cli
 
 def main():
