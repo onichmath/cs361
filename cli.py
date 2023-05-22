@@ -3,6 +3,13 @@ import hash_file
 from re import split 
 import sys
 import client
+"""
+Refactoring ideas:
+    put each "line" of questions and functions into their own file
+    try to improve composition by changing around file
+    get rid of repeated code
+    comment each function
+"""
 
 def start_screen() -> str:
     question = questionary.select(
@@ -32,6 +39,16 @@ def database_operations_prompt() -> str:
                 "Add a file hash to database",
                 "Query the database for file hash",
                 "Return to start screen",
+                ])
+    return question.ask()
+
+def query_database_type_prompt() -> str:
+    question = questionary.select(
+            "What type of query would you like to make?",
+            choices = [
+                "Get a single file hash",
+                "Get all file hashes",
+                "Return to previous screen",
                 ])
     return question.ask()
 
@@ -112,7 +129,8 @@ def add_file_hash_to_database():
         except:
             print("server error")
 
-
+def query_database():
+    answer = query_database_type_prompt()
 
 def database_operations():
     while True:
@@ -121,7 +139,7 @@ def database_operations():
             case "Add a file hash to database":
                 add_file_hash_to_database()
             case "Query the database for file hash":
-                pass
+                query_database()
             case "Return to start screen":
                 return
 
