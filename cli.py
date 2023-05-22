@@ -3,7 +3,7 @@ import hash_file
 from re import split 
 import sys
 
-def start_screen():
+def start_screen() -> str:
     question = questionary.select(
             "Welcome to Hashy. Pick an option to continue:",
             choices=[
@@ -14,7 +14,7 @@ def start_screen():
             ])
     return question.ask()
 
-def single_file_prompt():
+def single_file_prompt() -> str:
     question = questionary.select(
             "What would you like to do with the file's Blake2b hash?",
             choices = [
@@ -24,7 +24,17 @@ def single_file_prompt():
             ])
     return question.ask()
 
-def p_help():
+def database_operations_prompt() -> str:
+    question = questionary.select(
+            "What database operation would you like to make?",
+            choices = [
+                "Add a file hash to database",
+                "Query the database for file hash",
+                "Return to start screen",
+                ])
+    return question.ask()
+
+def p_help() -> None:
     print(f"\nWelcome to Hashy, a Command Line hashing tool. Hashy uses the Blake2 hashing algorithm to find the hashes of files. \
           \n\t1. Why? \
           \n\t\tTracking the hashes of files allows us to tell whether or not they have been tampered with. \
@@ -84,6 +94,19 @@ def sys_print_hash():
         raise FileNotFoundError
     print(f"The hash of {file_name} is:\n{blake_hash.hexdigest()}")
 
+
+
+def database_operations():
+    while True:
+        answer = database_operations_prompt()
+        match answer:
+            case "Add a file hash to database":
+                pass
+            case "Query the database for file hash":
+                pass
+            case "Return to start screen":
+                return
+
 def main():
     if len(sys.argv) == 1:
         while True:
@@ -96,7 +119,7 @@ def main():
                     if path:
                         single_file_operations(path,hash)
                 case "Database Operations":
-                    pass
+                    database_operations()
                 case "Exit":
                     break
     else:
