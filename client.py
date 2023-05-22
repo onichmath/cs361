@@ -1,3 +1,4 @@
+# Author: Brendan Cook
 import zmq
 
 def client(sql_request):

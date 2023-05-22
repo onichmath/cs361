@@ -30,13 +30,9 @@ def select_db(sql):
     when complete. Takes an SQL statement as the 
     only parameter."""
     # Select data
-    try:
-        cursor.execute(sql)
-    except:
-        return "Failure"
+    cursor.execute(sql)
     data = cursor.fetchall()
     results = ''
-    print(data)
 
     if len(data) == 0:
         # No entries found
