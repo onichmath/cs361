@@ -3,6 +3,7 @@ import hash_file
 from re import split 
 import sys
 from database import client
+import single_file_operations
 """
 Refactoring ideas:
     put each "line" of questions and functions into their own file
@@ -180,9 +181,9 @@ def main():
                 p_help()
                 continue
             if init_answer == "Single File Operations":
-                path,hash = get_single_file_path_hash()
+                path,hash = single_file_operations.get_single_file_path_hash()
                 if path:
-                    single_file_operations(path,hash)
+                    single_file_operations.single_file_operations(path,hash)
                 continue
             if init_answer == "Database Operations":
                 database_operations()
