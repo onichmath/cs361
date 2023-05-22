@@ -9,8 +9,8 @@ import sys_operations
 from questions import p_help, start_screen
 """
 Refactoring ideas:
-    put each "line" of questions and functions into their own file
-    try to improve composition by changing around file
+    Make each function do only 1 thing. Make functions require more things as params
+    Ex: require path as param instead of getting path during function
     get rid of repeated code
     comment each function
 """
