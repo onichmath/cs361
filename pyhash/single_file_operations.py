@@ -23,13 +23,13 @@ def single_file_operations(path,hash):
     file_name = get_filename_from_path(path)
     while True:
         answer = single_file_prompt()
-        match answer:
-            case "Print the hash to the terminal":
-                print(f"The hash of {file_name} is:\n{hash.hexdigest()}")
-            case "Save the hash to a file":
-                if question_confirm("Saving a hash will take up drive space. Continue?"):
-                    path = question_single_directory()
-                    hash_file.save_hash_to_absolute_path(hash,path + f"/{file_name}.blake2")
-            case "Return to start screen":
-                return
-
+        if answer == "Print the hash to the terminal":
+            print(f"The hash of {file_name} is:\n{hash.hexdigest()}")
+            continue
+        if answer == "Save the hash to a file":
+            if question_confirm("Saving a hash will take up drive space. Continue?"):
+                path = question_single_directory()
+                hash_file.save_hash_to_absolute_path(hash,path + f"/{file_name}.blake2")
+            continue
+        if answer == "Return to start screen":
+            return
