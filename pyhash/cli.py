@@ -5,6 +5,7 @@ Description: CLI main flow
 import sys
 import single_file_operations
 import database_operations
+import sys_operations
 from questions import p_help, start_screen
 """
 Refactoring ideas:
@@ -13,16 +14,6 @@ Refactoring ideas:
     get rid of repeated code
     comment each function
 """
-
-def sys_print_hash():
-    path = sys.argv[1]
-    file_name = get_filename_from_path(path)
-    try:
-        blake_hash = get_single_file_hash(path)
-    except:
-        p_help()
-        raise FileNotFoundError
-    print(f"The hash of {file_name} is:\n{blake_hash.hexdigest()}")
 
 def main():
     """
@@ -47,4 +38,4 @@ def main():
             continue
     # Make sure this case doesn
     else:
-        sys_print_hash()
+        sys_operations.sys_print_hash()
