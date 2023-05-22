@@ -2,7 +2,7 @@ import questionary
 import hash_file
 from re import split 
 import sys
-import client
+from database import client
 """
 Refactoring ideas:
     put each "line" of questions and functions into their own file
