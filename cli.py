@@ -8,6 +8,7 @@ def start_screen():
             "Welcome to Hashy. Pick an option to continue:",
             choices=[
                 "Single File Operations",
+                "Database Operations",
                 "Help",
                 "Exit",
             ])
@@ -94,6 +95,8 @@ def main():
                     path,hash = get_single_file_path_hash()
                     if path:
                         single_file_operations(path,hash)
+                case "Database Operations":
+                    pass
                 case "Exit":
                     break
     else:
