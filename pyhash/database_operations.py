@@ -37,13 +37,14 @@ def database_select_single_file():
 def query_database():
     while True:
         answer = query_database_type_prompt()
-        match answer:
-            case "Get a single file hash":
-                database_select_single_file()
-            case "Get all file hashes":
-                hash_query_results = client.client("SELECT * FROM hashes")
-                if hash_query_results:
-                    for row in hash_query_results:
-                        print(row)
-            case "Return to previous screen":
-                return
+        if answer == "Get a single file hash":
+            database_select_single_file()
+            continue
+        if answer == "Get all file hashes":
+            hash_query_results = client.client("SELECT * FROM hashes")
+            if hash_query_results:
+                for row in hash_query_results:
+                    print(row)
+            continue
+        if answer == "Return to previous screen":
+            return
