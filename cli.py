@@ -151,7 +151,9 @@ def query_database():
                 database_select_single_file()
             case "Get all file hashes":
                 hash_query_results = client.client("SELECT * FROM hashes")
-                print(hash_query_results)
+                if hash_query_results:
+                    for row in hash_query_results:
+                        print(row)
             case "Return to previous screen":
                 return
 
