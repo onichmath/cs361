@@ -14,5 +14,3 @@ def create_db():
     create_command = """CREATE TABLE IF NOT EXISTS
     hashes(hash TEXT, file_name TEXT)"""
     cursor.execute(create_command)
-
-

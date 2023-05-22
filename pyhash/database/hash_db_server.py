@@ -45,19 +45,3 @@ while True:
     elif sql.decode() == 'exit':
         # Closes the connection and ends the script
         break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
