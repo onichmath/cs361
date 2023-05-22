@@ -65,7 +65,6 @@ def p_help() -> None:
           \n\t\tpython main.py \"/path/to/file.ext\" \
           \n\tTo continue, simply choose an option.\n")
 
-
 def get_single_file_hash(path):
     return hash_file.hash_file_from_absolute_path(path)
 
@@ -171,19 +170,26 @@ def database_operations():
                 return
 
 def main():
+    """
+    Opens up cli if not given a file hash
+    """
     if len(sys.argv) == 1:
         while True:
             init_answer = start_screen()
-            match init_answer:
-                case "Help":
-                    p_help()
-                case "Single File Operations":
-                    path,hash = get_single_file_path_hash()
-                    if path:
-                        single_file_operations(path,hash)
-                case "Database Operations":
-                    database_operations()
-                case "Exit":
-                    break
+            if init_answer == "Help":
+                p_help()
+                continue
+            if init_answer == "Single File Operations":
+                path,hash = get_single_file_path_hash()
+                if path:
+                    single_file_operations(path,hash)
+                continue
+            if init_answer == "Database Operations":
+                database_operations()
+                continue
+            if init_answer == "Exit":
+                break
+            continue
+    # Continue above so this case doesn't accidentaly hit
     else:
         sys_print_hash()
