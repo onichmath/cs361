@@ -2,6 +2,7 @@ import questionary
 import hash_file
 from re import split 
 import sys
+import client
 
 def start_screen() -> str:
     question = questionary.select(
@@ -94,6 +95,23 @@ def sys_print_hash():
         raise FileNotFoundError
     print(f"The hash of {file_name} is:\n{blake_hash.hexdigest()}")
 
+def add_file_hash_to_database():
+    while True:
+        path = question_single_path()
+        try:
+            blake_hash = get_single_file_hash(path)
+            file_name = get_filename_from_path(path)
+        except:
+            print(FileNotFoundError("File not found"))
+            if questionary.confirm("Try another path?").ask():
+               continue 
+            else: 
+                return
+        try:
+            client.client(f"INSERT INTO hashes (hash,file_name) VALUES ({blake_hash},{file_name})")
+        except:
+            print("server error")
+
 
 
 def database_operations():
@@ -101,7 +119,7 @@ def database_operations():
         answer = database_operations_prompt()
         match answer:
             case "Add a file hash to database":
-                pass
+                add_file_hash_to_database()
             case "Query the database for file hash":
                 pass
             case "Return to start screen":
