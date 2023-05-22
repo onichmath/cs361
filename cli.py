@@ -134,7 +134,7 @@ def add_file_hash_to_database():
 def database_select_single_file():
     while True:
         file_name = input("Filename to get:")
-        query = f"SELECT hash, file_name FROM hashes WHERE file_name = {file_name}"
+        query = f"SELECT hash, file_name FROM hashes WHERE file_name = '{file_name}'"
         try:
             client.client(query)
         except:

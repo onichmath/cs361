@@ -32,26 +32,27 @@ def select_db(sql):
     # Select data
     try:
         cursor.execute(sql)
-        data = cursor.fetchall()
-        results = ''
-
-        if len(data) == 0:
-            # No entries found
-            results = "Not Found"
-            return results
-
-        for i in range(len(data)):
-            items = data[i]
-            for j in range(len(items)):
-                values = items[j]
-                results = results + values
-                if j < (len(items) - 1):
-                    results = results + ' '
-                if j == (len(items) - 1):
-                    results = results + '\n'
-        return results
     except:
         return "Failure"
+    data = cursor.fetchall()
+    results = ''
+    print(data)
+
+    if len(data) == 0:
+        # No entries found
+        results = "Not Found"
+        return results
+
+    for i in range(len(data)):
+        items = data[i]
+        for j in range(len(items)):
+            values = items[j]
+            results = results + values
+            if j < (len(items) - 1):
+                results = results + ' '
+            if j == (len(items) - 1):
+                results = results + '\n'
+    return results
 
 
 def delete_db(sql):
