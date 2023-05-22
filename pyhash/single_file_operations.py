@@ -1,5 +1,4 @@
 import hash_file
-from database import client
 from questions import question_single_file_path, question_confirm, single_file_prompt, question_single_directory, get_filename_from_path
 
 def get_single_file_hash(path):
