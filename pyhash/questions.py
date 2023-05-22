@@ -1,7 +1,17 @@
 import questionary
+from re import split
 
-def question_single_path():
-    return questionary.path("Path including the file (/path/to/file.ext):").ask()
+def get_filename_from_path(path):
+    return split(r'^(.+)\/([^\/]+)$',path)[-2]
+
+def question_confirm(question:str):
+    return questionary.confirm(question).ask()
+
+def question_single_directory() -> str:
+    return questionary.path("Directory to save into: ").ask()
+
+def question_single_file_path() -> str:
+    return questionary.path("Path including the file (/path/to/file.ext): ").ask()
 
 def start_screen() -> str:
     question = questionary.select(

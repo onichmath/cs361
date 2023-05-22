@@ -1,16 +1,19 @@
 import hash_file
 from database import client
 import sys
-from questions import question_single_path
+from questions import question_single_file_path, question_confirm, single_file_prompt, question_single_directory, get_filename_from_path
+
+def get_single_file_hash(path):
+    return hash_file.hash_file_from_absolute_path(path)
 
 def get_single_file_path_hash():
     while True:
-        path = question_single_path() 
+        path = question_single_file_path() 
         try:
             blake_hash = get_single_file_hash(path)
         except:
             print(FileNotFoundError("File not found"))
-            if questionary.confirm("Try another path?").ask():
+            if question_confirm("Try another path?"):
                 continue
             else: 
                 return None,None
@@ -24,8 +27,8 @@ def single_file_operations(path,hash):
             case "Print the hash to the terminal":
                 print(f"The hash of {file_name} is:\n{hash.hexdigest()}")
             case "Save the hash to a file":
-                if questionary.confirm("Saving a hash will take up drive space. Continue?").ask():
-                    path = questionary.path("Directory to save the hash:").ask()
+                if question_confirm("Saving a hash will take up drive space. Continue?"):
+                    path = question_single_directory()
                     hash_file.save_hash_to_absolute_path(hash,path + f"/{file_name}.blake2")
             case "Return to start screen":
                 return
