@@ -124,7 +124,7 @@ def add_file_hash_to_database():
                continue 
             return
         try:
-            query = f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash}','{file_name}')"
+            query = f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash.hexdigest()}','{file_name}')"
             client.client(query)
         except:
             print("server error")

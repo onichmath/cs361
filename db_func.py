@@ -16,9 +16,12 @@ def insert_db(sql):
     Returns True when complete. Takes an SQL
     statement as the only parameter."""
     # Insert data
-    cursor.execute(sql)
-    connection.commit()
-    return True
+    try:
+        cursor.execute(sql)
+        connection.commit()
+        return True
+    except:
+        return "Failure"
 
 
 def select_db(sql):
@@ -27,26 +30,28 @@ def select_db(sql):
     when complete. Takes an SQL statement as the 
     only parameter."""
     # Select data
-    cursor.execute(sql)
-    data = cursor.fetchall()
-    results = ''
+    try:
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        results = ''
 
-    if len(data) == 0:
-        # No entries found
-        results = "Not Found"
+        if len(data) == 0:
+            # No entries found
+            results = "Not Found"
+            return results
+
+        for i in range(len(data)):
+            items = data[i]
+            for j in range(len(items)):
+                values = items[j]
+                results = results + values
+                if j < (len(items) - 1):
+                    results = results + ' '
+                if j == (len(items) - 1):
+                    results = results + '\n'
         return results
-
-    for i in range(len(data)):
-        items = data[i]
-        for j in range(len(items)):
-            values = items[j]
-            results = results + values
-            if j < (len(items) - 1):
-                results = results + ' '
-            if j == (len(items) - 1):
-                results = results + '\n'
-
-    return results
+    except:
+        return "Failure"
 
 
 def delete_db(sql):
