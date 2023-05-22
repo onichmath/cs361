@@ -1,5 +1,5 @@
 import hash_file 
-from questions import question_single_file_path, get_filename_from_path, question_confirm, query_database_type_prompt
+from questions import question_single_file_path, get_filename_from_path, question_confirm, query_database_type_prompt, database_operations_prompt
 from database import client
 
 def add_file_hash_to_database():
@@ -47,4 +47,16 @@ def query_database():
                     print(row)
             continue
         if answer == "Return to previous screen":
+            return
+
+def database_operations():
+    while True:
+        answer = database_operations_prompt()
+        if answer == "Add a file hash to database":
+            add_file_hash_to_database()
+            continue
+        if answer == "Query the database for file hash":
+            query_database()
+            continue
+        if answer == "Return to start screen":
             return
