@@ -125,12 +125,29 @@ def add_file_hash_to_database():
             else: 
                 return
         try:
-            client.client(f"INSERT INTO hashes (hash,file_name) VALUES ({blake_hash},{file_name})")
+            client.client(f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash}','{file_name}')")
         except:
             print("server error")
+        else:
+            return
+
+
+def database_select_single_file():
+    while True:
+        file_name = input("Filename to get:")
+
 
 def query_database():
-    answer = query_database_type_prompt()
+    while True:
+        answer = query_database_type_prompt()
+        match answer:
+            case "Get a single file hash":
+                database_select_single_file()
+            case "Get all file hashes":
+                hash_query_results = client.client("SELECT * FROM hashes")
+                print(hash_query_results)
+            case "Return to previous screen":
+                return
 
 def database_operations():
     while True:
