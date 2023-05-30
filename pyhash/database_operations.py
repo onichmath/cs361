@@ -5,6 +5,7 @@ Description: Database operations for use with cli
 import hash_file 
 from questions import question_single_file_path, get_filename_from_path, question_confirm, query_database_type_prompt, database_operations_prompt
 from database import client
+from datetime import datetime
 
 def add_file_hash_to_database():
     while True:
@@ -19,7 +20,7 @@ def add_file_hash_to_database():
             return
         try:
             #query = f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash.hexdigest()}','{file_name}') WHERE NOT EXISTS (SELECT * FROM hashes WHERE file_name = '{file_name}' AND hash = '{blake_hash.hexdigest()}')"
-            query = f"INSERT INTO hashes (hash,file_name) VALUES ('{blake_hash.hexdigest()}', '{file_name}')"
+            query = f"INSERT INTO hashes (hash,file_name, timestamp) VALUES ('{blake_hash.hexdigest()}', '{file_name}', '{datetime.now()}')"
             print(query)
             client.client(query)
         except:
@@ -29,7 +30,7 @@ def add_file_hash_to_database():
 def database_select_single_file():
     while True:
         file_name = input("Filename to get:")
-        query = f"SELECT hash, file_name FROM hashes WHERE file_name = '{file_name}'"
+        query = f"SELECT file_name, timestamp, hash FROM hashes WHERE file_name = '{file_name}'"
         try:
             client.client(query)
         except:
@@ -45,7 +46,7 @@ def query_database():
             database_select_single_file()
             continue
         if answer == "Get all file hashes":
-            hash_query_results = client.client("SELECT * FROM hashes")
+            hash_query_results = client.client("SELECT file_name, timestamp, hash FROM hashes")
             if hash_query_results:
                 for row in hash_query_results:
                     print(row)

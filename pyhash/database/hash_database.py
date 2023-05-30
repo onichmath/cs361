@@ -12,5 +12,5 @@ def create_db():
     cursor = connection.cursor()
     # Create hashes table
     create_command = """CREATE TABLE IF NOT EXISTS
-    hashes(hash TEXT, file_name TEXT)"""
+    hashes(hash TEXT, file_name TEXT, timestamp TEXT)"""
     cursor.execute(create_command)
